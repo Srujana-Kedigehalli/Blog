@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Blog</title>
+  <style>
+    body {
+      background-color: #fcf5ff; 
+    }
+    
+    .navbar {
+      background-color: #4c3f72 !important ; 
+    }
+    
+    .btn-primary {
+      background-color: #6a89cc;
+      border-color: #6a89cc;
+    }
+    
+    .btn-primary:hover {
+      background-color: #4a69bd;
+      border-color: #4a69bd;
+    }
+    
+    .btn-success {
+      background-color: #997d9b;
+      border-color: #393041;
+    }
+    
+    .btn-success:hover {
+      background-color: #c2a0bf;
+      border-color: #c2a0bf;
+    }
+    
+    .btn-danger {
+      background-color: #c22727d6;
+      border-color: #d4444474;
+    }
+    
+    .btn-danger:hover {
+      background-color: #581a2b;
+      border-color: #581a2b;
+    }
+    
+    .btn-info {
+      background-color: #4e5b82;
+      border-color: #4e5b82;
+    }
+    
+    .btn-info:hover {
+      background-color: #689bb8;
+      border-color: #689bb8;
+    }
+    
+    .card {
+      background-color: #ffffff; /* White background for cards */
+    }
+    .new-article-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      font-size: 24px;
+      line-height: 60px;
+      padding: 0;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .new-article-btn:hover {
+      transform: scale(1.1);
+    }
+  </style>
+
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="/">My Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/articles/new">New Article</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1 class="mb-4">Blog Articles</h1>
+    <a href="/articles/new" class="btn btn-success new-article-btn" title="New Article">+</a>
+
+    <div class="row">
+      <% articles.forEach(article => { %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h4 class="card-title"><%= article.title %></h4>
+              <h6 class="card-subtitle text-muted mb-2">
+                <%= article.createdAt.toLocaleDateString() %>
+              </h6>
+              <p class="card-text"><%= article.description %></p>
+            </div>
+            <div class="card-footer bg-white border-top-0">
+              <a href="articles/<%= article.slug %>" class="btn btn-primary btn-sm">Read More</a>
+              <a href="articles/edit/<%= article.id %>" class="btn btn-info btn-sm">Edit</a>
+              <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
